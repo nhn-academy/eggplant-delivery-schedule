@@ -20,6 +20,4 @@ public class DeliveryInfoStatusChange {
     @Enumerated(value = EnumType.STRING)
     private Status status;
 
-    private LocalDateTime completionTime;
-
 }

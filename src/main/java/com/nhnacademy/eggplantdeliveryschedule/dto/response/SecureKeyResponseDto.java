@@ -1,4 +1,4 @@
-package com.nhnacademy.eggplantdeliveryschedule.dto;
+package com.nhnacademy.eggplantdeliveryschedule.dto.response;
 
 import lombok.Getter;
 

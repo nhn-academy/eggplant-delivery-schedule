@@ -1,6 +1,6 @@
 package com.nhnacademy.eggplantdeliveryschedule.config;
 
-import com.nhnacademy.eggplantdeliveryschedule.dto.SecureKeyResponseDto;
+import com.nhnacademy.eggplantdeliveryschedule.dto.response.SecureKeyResponseDto;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.security.KeyManagementException;

@@ -9,3 +9,5 @@ datasource:
   url: 142ea0b649994beb8650736c271f5e13
   username: eggplant
   password: e55472d5d7ea4bbdb6f3149e1ed597e5
+
+eggplant-delivery-server.url: http://localhost:8080

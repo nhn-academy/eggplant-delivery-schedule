@@ -11,3 +11,8 @@ datasource:
   password: e55472d5d7ea4bbdb6f3149e1ed597e5
 
 eggplant-delivery-server.url: http://localhost:8080
+
+spring:
+  batch:
+    job:
+      enabled: false

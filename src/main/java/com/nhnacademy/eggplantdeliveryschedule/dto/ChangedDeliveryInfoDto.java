@@ -1,7 +1,5 @@
 package com.nhnacademy.eggplantdeliveryschedule.dto;
 
-import com.nhnacademy.eggplantdeliveryschedule.entity.status.Status;
-import java.time.LocalDateTime;
 import lombok.Getter;
 import lombok.Setter;
 

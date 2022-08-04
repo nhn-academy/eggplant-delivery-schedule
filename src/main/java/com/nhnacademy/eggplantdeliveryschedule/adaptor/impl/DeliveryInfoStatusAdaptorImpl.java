@@ -32,26 +32,24 @@ public class DeliveryInfoStatusAdaptorImpl implements DeliveryInfoStatusAdaptor 
     public List<DeliveryInfoStatusResponseDto> findDeliveryInfoStatuses() {
         WebClient webClient = WebClient.builder()
                                        .defaultHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
-                                       .baseUrl(url + ":8080")
+                                       .baseUrl(url)
                                        .build();
 
         return webClient.get()
-                        .uri(uriBuilder -> uriBuilder.path("/delivery-info-statuses").build())
+                        .uri(uriBuilder -> uriBuilder.path("/eggplant-delivery/delivery-info-status").build())
                         .retrieve()
-                        .bodyToFlux(DeliveryInfoStatusResponseDto.class)
-                        .collectList()
-                        .block();
+            .bodyToFlux(DeliveryInfoStatusResponseDto.class).collectList().block();
     }
 
     @Override
     public void insertChangedDeliveryInfo(List<ChangedDeliveryInfoDto> changedDeliveryInfoDtos) {
         WebClient webClient = WebClient.builder()
                                        .defaultHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
-                                       .baseUrl(url + ":8080")
+                                       .baseUrl(url)
                                        .build();
 
         webClient.patch()
-                 .uri(uriBuilder -> uriBuilder.path("/eggplant-delivery/delivery-completion").build())
+                 .uri(uriBuilder -> uriBuilder.path("/eggplant-delivery/delivery-info-status").build())
                  .bodyValue(changedDeliveryInfoDtos)
                  .retrieve()
                  .toEntity(Void.class)

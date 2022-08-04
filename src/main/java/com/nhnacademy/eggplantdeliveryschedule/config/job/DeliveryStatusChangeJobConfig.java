@@ -1,5 +1,6 @@
 package com.nhnacademy.eggplantdeliveryschedule.config.job;
 
+import java.util.UUID;
 import lombok.RequiredArgsConstructor;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.Step;
@@ -21,7 +22,7 @@ public class DeliveryStatusChangeJobConfig {
 
     @Bean
     public Job deliveryStatusChangeJob() {
-        return jobBuilderFactory.get("deliveryStatusChangeJob")
+        return jobBuilderFactory.get(UUID.randomUUID().toString())
                                 .start(deliveryStatusChangeStepConfig.prepareDeliveryStatusList())
                                 .build();
     }

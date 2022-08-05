@@ -3,7 +3,7 @@ package com.nhnacademy.eggplantdeliveryschedule.processor;
 import com.nhnacademy.eggplantdeliveryschedule.adaptor.DeliveryInfoStatusAdaptor;
 import com.nhnacademy.eggplantdeliveryschedule.dto.ChangedDeliveryInfoDto;
 import com.nhnacademy.eggplantdeliveryschedule.dto.response.DeliveryInfoStatusResponseDto;
-import com.nhnacademy.eggplantdeliveryschedule.dto.Status;
+import com.nhnacademy.eggplantdeliveryschedule.entity.status.Status;
 import java.util.ArrayList;
 import java.util.List;
 import lombok.RequiredArgsConstructor;

@@ -1,5 +1,6 @@
 package com.nhnacademy.eggplantdeliveryschedule.dto;
 
+import com.nhnacademy.eggplantdeliveryschedule.entity.status.Status;
 import lombok.Getter;
 import lombok.Setter;
 

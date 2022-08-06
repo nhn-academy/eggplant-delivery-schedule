@@ -1,6 +1,6 @@
 package com.nhnacademy.eggplantdeliveryschedule.reader;
 
-import com.nhnacademy.eggplantdeliveryschedule.service.DeliveryInfoService;
+import com.nhnacademy.eggplantdeliveryschedule.repository.DeliveryInfoRepository;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.batch.item.ItemReader;
@@ -14,10 +14,10 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public class ReadyToDeliveringReader implements ItemReader<List<String>> {
 
-    private final DeliveryInfoService deliveryInfoService;
+    private final DeliveryInfoRepository deliveryInfoRepository;
 
     @Override
     public List<String> read() {
-        return deliveryInfoService.retrieveDeliveryInfoStatus();
+        return deliveryInfoRepository.retrieveStatusReady();
     }
 }

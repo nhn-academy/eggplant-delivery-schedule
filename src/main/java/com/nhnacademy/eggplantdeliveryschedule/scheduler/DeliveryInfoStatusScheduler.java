@@ -1,9 +1,8 @@
 package com.nhnacademy.eggplantdeliveryschedule.scheduler;
 
-import com.nhnacademy.eggplantdeliveryschedule.config.job.DeliveryStatusChangeJobConfig;
+import com.nhnacademy.eggplantdeliveryschedule.config.batch.job.DeliveryStatusChangeJobConfig;
 import lombok.RequiredArgsConstructor;
 import org.springframework.batch.core.Job;
-import org.springframework.batch.core.JobParameter;
 import org.springframework.batch.core.JobParameters;
 import org.springframework.batch.core.JobParametersInvalidException;
 import org.springframework.batch.core.launch.JobLauncher;

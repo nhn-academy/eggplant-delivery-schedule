@@ -2,6 +2,8 @@ package com.nhnacademy.eggplantdeliveryschedule.reader;
 
 import com.nhnacademy.eggplantdeliveryschedule.adaptor.DeliveryInfoStatusAdaptor;
 import com.nhnacademy.eggplantdeliveryschedule.dto.response.DeliveryInfoStatusResponseDto;
+import com.nhnacademy.eggplantdeliveryschedule.entity.DeliveryInfo;
+import com.nhnacademy.eggplantdeliveryschedule.service.DeliveryInfoService;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.batch.item.ItemReader;
@@ -13,17 +15,15 @@ import org.springframework.stereotype.Component;
  */
 @Component
 @RequiredArgsConstructor
-public class PrepareDeliveryStatusReader implements ItemReader<List<DeliveryInfoStatusResponseDto>> {
+public class PrepareDeliveryStatusReader implements ItemReader<DeliveryInfoStatusResponseDto> {
 
-    private final DeliveryInfoStatusAdaptor deliveryInfoStatusAdaptor;
-
-    private int cnt = 0;
+    private final DeliveryInfoService deliveryInfoService;
 
     @Override
-    public List<DeliveryInfoStatusResponseDto> read() {
-        List<DeliveryInfoStatusResponseDto> deliveryInfoStatusResponseDtos =
-            deliveryInfoStatusAdaptor.findDeliveryInfoStatuses();
+    public DeliveryInfoStatusResponseDto read() {
+        DeliveryInfoStatusResponseDto deliveryInfoStatusResponseDto =
+            deliveryInfoService.retrieveDeliveryInfoStatus();
 
-        return ++cnt == 1 ? deliveryInfoStatusResponseDtos : null;
+        return deliveryInfoStatusResponseDto;
     }
 }

@@ -10,8 +10,8 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 @EnableBatchProcessing
 public class EggplantDeliveryScheduleApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(EggplantDeliveryScheduleApplication.class, args);
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(EggplantDeliveryScheduleApplication.class, args);
+    }
 
 }

@@ -32,4 +32,12 @@ public class JobConfig {
                                 .build();
     }
 
+    @Bean
+    public Job deliveringToArrivalJob() {
+        // Job 아이디의 중복을 막기위해 UUID 를 사용.
+        return jobBuilderFactory.get(UUID.randomUUID().toString())
+                                .start(stepConfig.deliveringToArrivalStep())
+                                .build();
+    }
+
 }

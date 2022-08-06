@@ -19,7 +19,7 @@ import org.springframework.stereotype.Component;
  */
 @RequiredArgsConstructor
 @Component
-public class DeliveryInfoStatusScheduler {
+public class DeliveryScheduler {
     private final JobLauncher jobLauncher;
 
     private final JobConfig jobConfig;
@@ -43,6 +43,22 @@ public class DeliveryInfoStatusScheduler {
     @Scheduled(fixedRate = 10000)
     public void doDeliveryLocationChangeJob() {
         Job job = jobConfig.deliveryLocationChangeJob();
+        JobParameters jobParameters = new JobParameters();
+
+        try {
+            jobLauncher.run(job, jobParameters);
+        } catch (JobInstanceAlreadyCompleteException
+                 | JobExecutionAlreadyRunningException
+                 | JobParametersInvalidException
+                 | JobRestartException e) {
+
+            throw new CustomJobException();
+        }
+    }
+
+    @Scheduled(fixedRate = 10000)
+    public void deliveringToArrival() {
+        Job job = jobConfig.deliveringToArrivalJob();
         JobParameters jobParameters = new JobParameters();
 
         try {

@@ -38,4 +38,11 @@ public class JobConfig {
                                 .build();
     }
 
+    @Bean
+    public Job deliveringToArrivalJob() {
+        return jobBuilderFactory.get(UUID.randomUUID().toString())
+                                .start(stepConfig.deliveringToArrivalStep())
+                                .build();
+    }
+
 }

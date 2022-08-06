@@ -1,8 +1,10 @@
 package com.nhnacademy.eggplantdeliveryschedule.config.batch;
 
+import com.nhnacademy.eggplantdeliveryschedule.reader.DeliveringToArrivalReader;
 import com.nhnacademy.eggplantdeliveryschedule.reader.DeliveryLocationChangeReader;
 import com.nhnacademy.eggplantdeliveryschedule.reader.LocationChangeReader;
 import com.nhnacademy.eggplantdeliveryschedule.reader.ReadyToDeliveringReader;
+import com.nhnacademy.eggplantdeliveryschedule.writer.DeliveringToArrivalWriter;
 import com.nhnacademy.eggplantdeliveryschedule.writer.DeliveryLocationChangeWriter;
 import com.nhnacademy.eggplantdeliveryschedule.writer.LocationChangeWriter;
 import com.nhnacademy.eggplantdeliveryschedule.writer.ReadyToDeliveringWriter;
@@ -29,6 +31,8 @@ public class StepConfig {
     private final ReadyToDeliveringWriter readyToDeliveringWriter;
     private final DeliveryLocationChangeReader deliveryLocationChangeReader;
     private final DeliveryLocationChangeWriter deliveryLocationChangeWriter;
+    private final DeliveringToArrivalReader deliveringToArrivalReader;
+    private final DeliveringToArrivalWriter deliveringToArrivalWriter;
     private final StepBuilderFactory stepBuilderFactory;
 
     @Bean
@@ -50,6 +54,17 @@ public class StepConfig {
                                  .<List<String>, List<String>>chunk(CHUNK_SIZE)
                                  .reader(readyToDeliveringReader)
                                  .writer(readyToDeliveringWriter)
+                                 .build();
+    }
+
+    @Bean
+    @JobScope
+    public Step deliveringToArrivalStep() {
+        return stepBuilderFactory.get("배송 중 -> 배송 완료 step")
+                                 .allowStartIfComplete(true)
+                                 .<List<String>, List<String>>chunk(CHUNK_SIZE)
+                                 .reader(deliveringToArrivalReader)
+                                 .writer(deliveringToArrivalWriter)
                                  .build();
     }
 

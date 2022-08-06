@@ -41,4 +41,16 @@ public class DeliveryInfoRepositoryImpl extends QuerydslRepositorySupport implem
             .fetch();
     }
 
+    @Override
+    public List<String> retrieveStatusDeliveringFinalTrackingNo() {
+        return from(deliveryInfo)
+            .where(JPAExpressions.select(deliveryInfo.count()).from(del).innerJoin(loc)
+                                 .on(del.trackingNo.eq(loc.pk.trackingNo)).where(
+                    del.status.eq(Status.DELIVERING).and(deliveryInfo.trackingNo.eq(del.trackingNo))).eq(2L))
+            .orderBy(Expressions.numberTemplate(Double.class, "function('rand')").asc())
+            .limit(10L)
+            .select(deliveryInfo.trackingNo)
+            .fetch();
+    }
+
 }

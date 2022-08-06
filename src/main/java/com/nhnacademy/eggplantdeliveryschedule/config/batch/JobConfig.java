@@ -26,9 +26,15 @@ public class JobConfig {
 
     @Bean
     public Job deliveryStatusChangeJob() {
-        // Job 아이디의 중복을 막기위해 UUID 를 사용.
         return jobBuilderFactory.get(UUID.randomUUID().toString())
                                 .start(stepConfig.readyToDeliveringStep())
+                                .build();
+    }
+
+    @Bean
+    public Job deliveryLocationChangeJob() {
+        return jobBuilderFactory.get(UUID.randomUUID().toString())
+                                .start(stepConfig.deliveryLocationChangeStep())
                                 .build();
     }
 

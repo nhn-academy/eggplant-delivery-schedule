@@ -40,4 +40,20 @@ public class DeliveryInfoStatusScheduler {
         }
     }
 
+    @Scheduled(fixedRate = 10000)
+    public void doDeliveryLocationChangeJob() {
+        Job job = jobConfig.deliveryLocationChangeJob();
+        JobParameters jobParameters = new JobParameters();
+
+        try {
+            jobLauncher.run(job, jobParameters);
+        } catch (JobInstanceAlreadyCompleteException
+                 | JobExecutionAlreadyRunningException
+                 | JobParametersInvalidException
+                 | JobRestartException e) {
+
+            throw new CustomJobException();
+        }
+    }
+
 }

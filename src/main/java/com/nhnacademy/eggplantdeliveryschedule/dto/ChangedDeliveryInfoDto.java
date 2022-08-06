@@ -13,7 +13,6 @@ import lombok.Setter;
 public class ChangedDeliveryInfoDto {
 
     private String trackingNo;
-
     private Status status;
 
 }

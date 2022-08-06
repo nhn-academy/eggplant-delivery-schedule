@@ -1,4 +1,4 @@
-package com.nhnacademy.eggplantdeliveryschedule.config;
+package com.nhnacademy.eggplantdeliveryschedule.config.batch;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.batch.core.configuration.JobRegistry;
@@ -33,4 +33,5 @@ public class BatchConfig {
 
         return jobRegistryBeanPostProcessor;
     }
+
 }

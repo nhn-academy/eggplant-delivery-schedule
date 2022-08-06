@@ -21,4 +21,5 @@ public class Sender {
     public void sendDeliveryArrival(final ChangedDeliveryInfoDto changedDeliveryInfoDto) {
         rabbitTemplate.convertAndSend(DELIVERY_EXCHANGE, ROUTING_DELIVERY_ARRIVAL, changedDeliveryInfoDto);
     }
+
 }

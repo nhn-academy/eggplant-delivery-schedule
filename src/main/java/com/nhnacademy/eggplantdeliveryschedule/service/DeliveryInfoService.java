@@ -1,6 +1,5 @@
 package com.nhnacademy.eggplantdeliveryschedule.service;
 
-import com.nhnacademy.eggplantdeliveryschedule.dto.response.DeliveryInfoStatusResponseDto;
 import java.util.List;
 
 /**
@@ -9,5 +8,5 @@ import java.util.List;
  */
 public interface DeliveryInfoService {
 
-    DeliveryInfoStatusResponseDto retrieveDeliveryInfoStatus();
+    List<String> retrieveDeliveryInfoStatus();
 }

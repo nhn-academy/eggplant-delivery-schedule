@@ -56,5 +56,6 @@ public class DeliveryInfo {
     public void updateStatus(final Status status) {
         this.status = status;
     }
+
 }
 

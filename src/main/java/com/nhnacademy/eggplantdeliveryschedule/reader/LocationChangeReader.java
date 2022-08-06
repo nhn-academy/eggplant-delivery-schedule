@@ -1,6 +1,5 @@
 package com.nhnacademy.eggplantdeliveryschedule.reader;
 
-import java.util.List;
 import org.springframework.batch.item.ItemReader;
 import org.springframework.stereotype.Component;
 

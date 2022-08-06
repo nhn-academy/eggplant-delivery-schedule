@@ -6,7 +6,10 @@ package com.nhnacademy.eggplantdeliveryschedule.exception;
  */
 public class NotFoundDeliveryInfoException extends RuntimeException {
 
-    public NotFoundDeliveryInfoException(String message) {
-        super(message);
+    private static final String MESSAGE = "해당 배송정보를 찾을 수 없습니다.";
+
+    public NotFoundDeliveryInfoException() {
+        super(MESSAGE);
     }
+
 }

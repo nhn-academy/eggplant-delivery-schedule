@@ -1,6 +1,5 @@
 package com.nhnacademy.eggplantdeliveryschedule.writer;
 
-import com.nhnacademy.eggplantdeliveryschedule.dto.response.DeliveryInfoStatusResponseDto;
 import com.nhnacademy.eggplantdeliveryschedule.entity.DeliveryInfo;
 import com.nhnacademy.eggplantdeliveryschedule.entity.Location;
 import com.nhnacademy.eggplantdeliveryschedule.entity.status.Status;
@@ -9,6 +8,7 @@ import com.nhnacademy.eggplantdeliveryschedule.repository.DeliveryInfoRepository
 import com.nhnacademy.eggplantdeliveryschedule.repository.LocationRepository;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import org.springframework.batch.core.StepExecution;
 import org.springframework.batch.core.annotation.BeforeStep;
@@ -24,25 +24,28 @@ import org.springframework.stereotype.Component;
 @Component
 @StepScope
 @RequiredArgsConstructor
-public class PrepareDeliveryStatusWriter implements ItemWriter<DeliveryInfoStatusResponseDto> {
+public class ReadyToDeliveringWriter implements ItemWriter<List<String>> {
 
     private StepExecution stepExecution;
     private final DeliveryInfoRepository deliveryInfoRepository;
     private final LocationRepository locationRepository;
 
     @Override
-    public void write(List<? extends DeliveryInfoStatusResponseDto> deliveryInfoStatusResponseDtos) {
+    public void write(List<? extends List<String>> trackingNoChunkList) {
         ExecutionContext executionContext = this.stepExecution.getExecutionContext();
-        executionContext.put("deliveryInfoStatusResponseDtos", deliveryInfoStatusResponseDtos);
+        executionContext.put("trackingNoChunkList", trackingNoChunkList);
 
-        for (DeliveryInfoStatusResponseDto deliveryInfoStatusResponseDto : deliveryInfoStatusResponseDtos) {
-            DeliveryInfo deliveryInfo = deliveryInfoRepository.findById(deliveryInfoStatusResponseDto.getTrackingNo())
-                                                              .orElseThrow(() -> new NotFoundDeliveryInfoException(
-                                                                  "해당 배송 정보가 없습니다."));
+        List<String> trackingNoList = trackingNoChunkList.stream()
+                                                         .flatMap(List::stream)
+                                                         .collect(Collectors.toList());
+
+        for (String trackingNo : trackingNoList) {
+            DeliveryInfo deliveryInfo = deliveryInfoRepository.findById(trackingNo)
+                                                              .orElseThrow(NotFoundDeliveryInfoException::new);
             deliveryInfo.updateStatus(Status.DELIVERING);
 
             Location location = Location.builder()
-                                        .locationNo(1L)
+                                        .pk(new Location.Pk(1L, deliveryInfo.getTrackingNo()))
                                         .deliveryInfo(deliveryInfo)
                                         .arrivalTime(LocalDateTime.now())
                                         .build();

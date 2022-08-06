@@ -1,6 +1,5 @@
-package com.nhnacademy.eggplantdeliveryschedule.config.batch.job;
+package com.nhnacademy.eggplantdeliveryschedule.config.batch;
 
-import com.nhnacademy.eggplantdeliveryschedule.config.batch.step.DeliveryStatusChangeStepConfig;
 import java.util.UUID;
 import lombok.RequiredArgsConstructor;
 import org.springframework.batch.core.Job;
@@ -14,15 +13,22 @@ import org.springframework.context.annotation.Configuration;
  */
 @Configuration
 @RequiredArgsConstructor
-public class DeliveryStatusChangeJobConfig {
-
+public class JobConfig {
     private final JobBuilderFactory jobBuilderFactory;
-    public final DeliveryStatusChangeStepConfig deliveryStatusChangeStepConfig;
+    public final StepConfig stepConfig;
+
+    @Bean
+    public Job locationChangeJob() {
+        return jobBuilderFactory.get(UUID.randomUUID().toString())
+                                .start(stepConfig.locationChangeList())
+                                .build();
+    }
 
     @Bean
     public Job deliveryStatusChangeJob() {
+        // Job 아이디의 중복을 막기위해 UUID 를 사용.
         return jobBuilderFactory.get(UUID.randomUUID().toString())
-                                .start(deliveryStatusChangeStepConfig.prepareDeliveryStatusList())
+                                .start(stepConfig.readyToDeliveringStep())
                                 .build();
     }
 

@@ -11,7 +11,6 @@ import lombok.Getter;
 public class SecureKeyResponseDto {
 
     private Header header;
-
     private Body body;
 
     /**
@@ -25,6 +24,7 @@ public class SecureKeyResponseDto {
         private Integer resultCode;
         private String resultMessage;
         private Boolean isSuccessful;
+
     }
 
     /**
@@ -36,6 +36,7 @@ public class SecureKeyResponseDto {
     public static class Body {
 
         private String secret;
+
     }
 
 }

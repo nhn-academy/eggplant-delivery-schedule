@@ -6,18 +6,14 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.batch.item.ItemReader;
 import org.springframework.stereotype.Component;
 
-/**
- * @author : 조재철
- * @since 1.0
- */
 @Component
 @RequiredArgsConstructor
-public class ReadyToDeliveringReader implements ItemReader<List<String>> {
+public class DeliveryLocationChangeReader implements ItemReader<List<String>> {
 
     private final DeliveryInfoRepository deliveryInfoRepository;
 
     @Override
     public List<String> read() {
-        return deliveryInfoRepository.retrieveStatusReadyTrackingNo();
+        return deliveryInfoRepository.retrieveStatusDeliveringTrackingNo();
     }
 }

@@ -1,7 +1,9 @@
 package com.nhnacademy.eggplantdeliveryschedule.config.batch;
 
+import com.nhnacademy.eggplantdeliveryschedule.reader.DeliveryLocationChangeReader;
 import com.nhnacademy.eggplantdeliveryschedule.reader.LocationChangeReader;
 import com.nhnacademy.eggplantdeliveryschedule.reader.ReadyToDeliveringReader;
+import com.nhnacademy.eggplantdeliveryschedule.writer.DeliveryLocationChangeWriter;
 import com.nhnacademy.eggplantdeliveryschedule.writer.LocationChangeWriter;
 import com.nhnacademy.eggplantdeliveryschedule.writer.ReadyToDeliveringWriter;
 import java.util.List;
@@ -25,6 +27,8 @@ public class StepConfig {
     private final LocationChangeWriter locationChangeWriter;
     private final ReadyToDeliveringReader readyToDeliveringReader;
     private final ReadyToDeliveringWriter readyToDeliveringWriter;
+    private final DeliveryLocationChangeReader deliveryLocationChangeReader;
+    private final DeliveryLocationChangeWriter deliveryLocationChangeWriter;
     private final StepBuilderFactory stepBuilderFactory;
 
     @Bean
@@ -46,6 +50,17 @@ public class StepConfig {
                                  .<List<String>, List<String>>chunk(CHUNK_SIZE)
                                  .reader(readyToDeliveringReader)
                                  .writer(readyToDeliveringWriter)
+                                 .build();
+    }
+
+    @Bean
+    @JobScope
+    public Step deliveryLocationChangeStep() {
+        return stepBuilderFactory.get("배송 위치 상태를 바꿔주는 step")
+                                 .allowStartIfComplete(true)
+                                 .<List<String>, List<String>>chunk(CHUNK_SIZE)
+                                 .reader(deliveryLocationChangeReader)
+                                 .writer(deliveryLocationChangeWriter)
                                  .build();
     }
 

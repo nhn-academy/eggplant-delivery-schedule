@@ -8,8 +8,10 @@ import org.springframework.batch.item.ItemReader;
 import org.springframework.stereotype.Component;
 
 /**
- * @author : 조재철
- * @since 1.0
+ * 배송정보의 상태가 배송중에서 배송완료 처리를 하기위해 Db 를 읽을 Reader 클래스 입니다.
+ *
+ * @author : 조재철, 김훈민
+ * @version 1.0.0
  */
 @Component
 @StepScope
@@ -22,4 +24,5 @@ public class DeliveringToArrivalReader implements ItemReader<List<String>> {
     public List<String> read() {
         return deliveryInfoRepository.retrieveStatusDeliveringFinalTrackingNo();
     }
+
 }

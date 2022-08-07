@@ -1,4 +1,4 @@
-package com.nhnacademy.eggplantdeliveryschedule.writer;
+package com.nhnacademy.eggplantdeliveryschedule.entity.status.writer;
 
 import com.nhnacademy.eggplantdeliveryschedule.entity.DeliveryInfo;
 import com.nhnacademy.eggplantdeliveryschedule.entity.status.Status;
@@ -34,4 +34,5 @@ public class DeliveringToArrivalWriter implements ItemWriter<List<String>> {
             deliveryInfo.updateStatus(Status.ARRIVAL);
         }
     }
+
 }

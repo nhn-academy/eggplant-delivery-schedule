@@ -1,13 +1,11 @@
 package com.nhnacademy.eggplantdeliveryschedule.config.batch;
 
+import com.nhnacademy.eggplantdeliveryschedule.entity.status.writer.DeliveringToArrivalWriter;
+import com.nhnacademy.eggplantdeliveryschedule.entity.status.writer.DeliveryLocationChangeWriter;
+import com.nhnacademy.eggplantdeliveryschedule.entity.status.writer.ReadyToDeliveringWriter;
 import com.nhnacademy.eggplantdeliveryschedule.reader.DeliveringToArrivalReader;
 import com.nhnacademy.eggplantdeliveryschedule.reader.DeliveryLocationChangeReader;
-import com.nhnacademy.eggplantdeliveryschedule.reader.LocationChangeReader;
 import com.nhnacademy.eggplantdeliveryschedule.reader.ReadyToDeliveringReader;
-import com.nhnacademy.eggplantdeliveryschedule.writer.DeliveringToArrivalWriter;
-import com.nhnacademy.eggplantdeliveryschedule.writer.DeliveryLocationChangeWriter;
-import com.nhnacademy.eggplantdeliveryschedule.writer.LocationChangeWriter;
-import com.nhnacademy.eggplantdeliveryschedule.writer.ReadyToDeliveringWriter;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.batch.core.Step;
@@ -25,8 +23,6 @@ import org.springframework.context.annotation.Configuration;
 public class StepConfig {
 
     private static final int CHUNK_SIZE = 10;
-    private final LocationChangeReader locationChangeReader;
-    private final LocationChangeWriter locationChangeWriter;
     private final ReadyToDeliveringReader readyToDeliveringReader;
     private final ReadyToDeliveringWriter readyToDeliveringWriter;
     private final DeliveryLocationChangeReader deliveryLocationChangeReader;
@@ -34,17 +30,6 @@ public class StepConfig {
     private final DeliveringToArrivalReader deliveringToArrivalReader;
     private final DeliveringToArrivalWriter deliveringToArrivalWriter;
     private final StepBuilderFactory stepBuilderFactory;
-
-    @Bean
-    @JobScope
-    public Step locationChangeList() {
-        return stepBuilderFactory.get("배송 위치가 변경된 step")
-                                 .allowStartIfComplete(true)
-                                 .<String, String>chunk(CHUNK_SIZE)
-                                 .reader(locationChangeReader)
-                                 .writer(locationChangeWriter)
-                                 .build();
-    }
 
     @Bean
     @JobScope

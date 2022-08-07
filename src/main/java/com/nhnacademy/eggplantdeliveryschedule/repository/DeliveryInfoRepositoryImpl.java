@@ -11,6 +11,7 @@ import org.springframework.data.jpa.repository.support.QuerydslRepositorySupport
 
 public class DeliveryInfoRepositoryImpl extends QuerydslRepositorySupport implements CustomDeliveryInfoRepository {
 
+    private static final String RAND_FUNCTION = "function('rand')";
     QDeliveryInfo del = new QDeliveryInfo("del");
     QDeliveryInfo deliveryInfo = QDeliveryInfo.deliveryInfo;
     QLocation loc = new QLocation("loc");
@@ -23,7 +24,7 @@ public class DeliveryInfoRepositoryImpl extends QuerydslRepositorySupport implem
     public List<String> retrieveStatusReadyTrackingNo() {
         return from(deliveryInfo)
             .where(deliveryInfo.status.eq(Status.READY))
-            .orderBy(Expressions.numberTemplate(Double.class, "function('rand')").asc())
+            .orderBy(Expressions.numberTemplate(Double.class, RAND_FUNCTION).asc())
             .limit(10L)
             .select(deliveryInfo.trackingNo)
             .fetch();
@@ -35,7 +36,7 @@ public class DeliveryInfoRepositoryImpl extends QuerydslRepositorySupport implem
             .where(JPAExpressions.select(deliveryInfo.count()).from(del).innerJoin(loc)
                                  .on(del.trackingNo.eq(loc.pk.trackingNo)).where(
                     del.status.eq(Status.DELIVERING).and(deliveryInfo.trackingNo.eq(del.trackingNo))).eq(1L))
-            .orderBy(Expressions.numberTemplate(Double.class, "function('rand')").asc())
+            .orderBy(Expressions.numberTemplate(Double.class, RAND_FUNCTION).asc())
             .limit(10L)
             .select(deliveryInfo.trackingNo)
             .fetch();
@@ -47,7 +48,7 @@ public class DeliveryInfoRepositoryImpl extends QuerydslRepositorySupport implem
             .where(JPAExpressions.select(deliveryInfo.count()).from(del).innerJoin(loc)
                                  .on(del.trackingNo.eq(loc.pk.trackingNo)).where(
                     del.status.eq(Status.DELIVERING).and(deliveryInfo.trackingNo.eq(del.trackingNo))).eq(2L))
-            .orderBy(Expressions.numberTemplate(Double.class, "function('rand')").asc())
+            .orderBy(Expressions.numberTemplate(Double.class, RAND_FUNCTION).asc())
             .limit(10L)
             .select(deliveryInfo.trackingNo)
             .fetch();

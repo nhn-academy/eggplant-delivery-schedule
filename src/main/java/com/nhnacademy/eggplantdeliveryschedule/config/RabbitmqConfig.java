@@ -26,7 +26,6 @@ public class RabbitmqConfig {
 
     public static final String ROUTING_EGGPLANT = "routing.Eggplant";
     public static final String ROUTING_TRACKING_NO = "routing.TrackingNo";
-
     private String host;
     private int port;
     private String username;

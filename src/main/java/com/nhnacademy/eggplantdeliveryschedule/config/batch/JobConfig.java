@@ -18,13 +18,6 @@ public class JobConfig {
     public final StepConfig stepConfig;
 
     @Bean
-    public Job locationChangeJob() {
-        return jobBuilderFactory.get(UUID.randomUUID().toString())
-                                .start(stepConfig.locationChangeList())
-                                .build();
-    }
-
-    @Bean
     public Job deliveryStatusChangeJob() {
         return jobBuilderFactory.get(UUID.randomUUID().toString())
                                 .start(stepConfig.readyToDeliveringStep())

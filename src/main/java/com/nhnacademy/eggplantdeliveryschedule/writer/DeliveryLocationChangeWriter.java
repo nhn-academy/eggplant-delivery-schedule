@@ -9,7 +9,6 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
-import org.springframework.batch.core.StepExecution;
 import org.springframework.batch.core.configuration.annotation.StepScope;
 import org.springframework.batch.item.ItemWriter;
 import org.springframework.stereotype.Component;
@@ -19,7 +18,6 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public class DeliveryLocationChangeWriter implements ItemWriter<List<String>> {
 
-    private StepExecution stepExecution;
     private final DeliveryInfoRepository deliveryInfoRepository;
     private final LocationRepository locationRepository;
 
@@ -39,7 +37,7 @@ public class DeliveryLocationChangeWriter implements ItemWriter<List<String>> {
                                         .build();
 
             locationRepository.save(location);
-
         }
     }
+
 }

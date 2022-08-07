@@ -7,4 +7,5 @@ public class CustomJobException extends RuntimeException {
     public CustomJobException() {
         super(MESSAGE);
     }
+
 }

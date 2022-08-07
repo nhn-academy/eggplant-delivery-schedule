@@ -13,7 +13,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 /**
- * Mysql DB 설정을 위한 클래스
+ * Mysql DB 설정을 위한 클래스 입니다.
  *
  * @author 김훈민, 조재철
  * @version 1.0.0

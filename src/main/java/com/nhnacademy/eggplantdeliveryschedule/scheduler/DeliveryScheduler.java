@@ -14,17 +14,21 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 /**
- * @author : 조재철
- * @since 1.0
+ * Job 의 Scheduling 을 담당하는 클래스 입니다.
+ *
+ * @author : 조재철, 김훈민
+ * @version 1.0.0
  */
 @RequiredArgsConstructor
 @Component
 public class DeliveryScheduler {
     private final JobLauncher jobLauncher;
-
     private final JobConfig jobConfig;
 
-    @Scheduled(fixedRate = 1000)
+    /**
+     * 배달 상태를 바꿔주는 일을 10초 단위로 처리하는 스케쥴러 메소드 입니다.
+     */
+    @Scheduled(fixedRate = 10000)
     public void doChangeDeliveryStatus() {
         Job job = jobConfig.deliveryStatusChangeJob();
         JobParameters jobParameters = new JobParameters();
@@ -40,7 +44,10 @@ public class DeliveryScheduler {
         }
     }
 
-    @Scheduled(fixedRate = 10000)
+    /**
+     * 배달위치를 바꿔주는 일을 20초 단위로 처리하는 스케쥴러 메소드 입니다.
+     */
+    @Scheduled(fixedRate = 20000)
     public void doDeliveryLocationChangeJob() {
         Job job = jobConfig.deliveryLocationChangeJob();
         JobParameters jobParameters = new JobParameters();
@@ -56,7 +63,10 @@ public class DeliveryScheduler {
         }
     }
 
-    @Scheduled(fixedRate = 10000)
+    /**
+     * 배달중인 상태를 도착 상태로 만들어주는 메서드를 30초 단위로 처리하는 메소드 입니다.
+     */
+    @Scheduled(fixedRate = 30000)
     public void deliveringToArrival() {
         Job job = jobConfig.deliveringToArrivalJob();
         JobParameters jobParameters = new JobParameters();

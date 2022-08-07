@@ -10,8 +10,8 @@ import org.springframework.context.annotation.Configuration;
 /**
  * Spring Batch 설정 클래스.
  *
- * @author : 조재철
- * @version 1.0
+ * @author : 조재철, 김훈민
+ * @version 1.0.0
  */
 @Configuration
 @RequiredArgsConstructor

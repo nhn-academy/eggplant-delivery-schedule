@@ -9,6 +9,13 @@ import com.querydsl.jpa.JPAExpressions;
 import java.util.List;
 import org.springframework.data.jpa.repository.support.QuerydslRepositorySupport;
 
+/**
+ * Query DSL 의 사용과 JpaRepository 의 Db 접근을 구현한 클래스 입니다.
+ * 해당 클래스는 배송정보 관련 처리를 위한 Repository 구현체 입니다.
+ *
+ * @author 조재철, 김훈민
+ * @version 1.0.0
+ */
 public class DeliveryInfoRepositoryImpl extends QuerydslRepositorySupport implements CustomDeliveryInfoRepository {
 
     private static final String RAND_FUNCTION = "function('rand')";

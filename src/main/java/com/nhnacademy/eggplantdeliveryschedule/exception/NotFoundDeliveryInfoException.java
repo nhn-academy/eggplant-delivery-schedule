@@ -1,8 +1,10 @@
 package com.nhnacademy.eggplantdeliveryschedule.exception;
 
 /**
- * @author : 조재철
- * @since 1.0
+ * 배송정보 조회시 존재하지 않을때 예외처리하는 클래스입니다.
+ *
+ * @author : 조재철, 김훈민
+ * @version 1.0.0
  */
 public class NotFoundDeliveryInfoException extends RuntimeException {
 

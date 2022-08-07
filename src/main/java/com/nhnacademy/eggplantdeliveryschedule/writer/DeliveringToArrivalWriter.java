@@ -1,4 +1,4 @@
-package com.nhnacademy.eggplantdeliveryschedule.entity.status.writer;
+package com.nhnacademy.eggplantdeliveryschedule.writer;
 
 import com.nhnacademy.eggplantdeliveryschedule.entity.DeliveryInfo;
 import com.nhnacademy.eggplantdeliveryschedule.entity.status.Status;
@@ -12,8 +12,10 @@ import org.springframework.batch.item.ItemWriter;
 import org.springframework.stereotype.Component;
 
 /**
- * @author : 조재철
- * @since 1.0
+ * DeliveringToArrivalReader 에서 읽은 데이터의 정보를 처리하기 위한 Writer 클래스 입니다.
+ *
+ * @author : 조재철, 김훈민
+ * @version  1.0.0
  */
 @Component
 @StepScope

@@ -107,6 +107,7 @@
     </dependencies>
 
     <build>
+        <finalName> eggplant-delivery-schedule </finalName>
         <plugins>
             <plugin>
                 <groupId>org.jacoco</groupId>

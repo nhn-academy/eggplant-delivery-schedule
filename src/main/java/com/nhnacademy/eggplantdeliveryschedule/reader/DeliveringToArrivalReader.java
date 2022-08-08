@@ -22,7 +22,8 @@ public class DeliveringToArrivalReader implements ItemReader<List<String>> {
 
     @Override
     public List<String> read() {
-        return deliveryInfoRepository.retrieveStatusDeliveringFinalTrackingNo();
+        List<String> trackingNoList = deliveryInfoRepository.retrieveStatusDeliveringFinalTrackingNo();
+        return trackingNoList.isEmpty() ? null : trackingNoList;
     }
 
 }

@@ -20,7 +20,8 @@ public class DeliveryLocationChangeReader implements ItemReader<List<String>> {
 
     @Override
     public List<String> read() {
-        return deliveryInfoRepository.retrieveStatusDeliveringTrackingNo();
+        List<String> trackingNoList = deliveryInfoRepository.retrieveStatusDeliveringTrackingNo();
+        return trackingNoList.isEmpty() ? null : trackingNoList;
     }
 
 }

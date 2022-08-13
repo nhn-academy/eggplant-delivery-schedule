@@ -15,12 +15,12 @@ import org.springframework.stereotype.Component;
 @Component
 @RequiredArgsConstructor
 public class ReadyToDeliveringReader implements ItemReader<List<String>> {
-
     private final DeliveryInfoRepository deliveryInfoRepository;
 
     @Override
     public List<String> read() {
-        return deliveryInfoRepository.retrieveStatusReadyTrackingNo();
+        List<String> trackingNoList = deliveryInfoRepository.retrieveStatusReadyTrackingNo();
+        return trackingNoList.isEmpty() ? null : trackingNoList;
     }
 
 }

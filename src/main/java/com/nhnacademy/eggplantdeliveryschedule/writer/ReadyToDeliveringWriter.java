@@ -1,21 +1,21 @@
 package com.nhnacademy.eggplantdeliveryschedule.writer;
 
+import com.nhnacademy.eggplantdeliveryschedule.dto.response.DeliveryInfoStatusResponseDto;
 import com.nhnacademy.eggplantdeliveryschedule.entity.DeliveryInfo;
 import com.nhnacademy.eggplantdeliveryschedule.entity.Location;
 import com.nhnacademy.eggplantdeliveryschedule.entity.status.Status;
 import com.nhnacademy.eggplantdeliveryschedule.exception.NotFoundDeliveryInfoException;
+import com.nhnacademy.eggplantdeliveryschedule.module.Sender;
 import com.nhnacademy.eggplantdeliveryschedule.repository.DeliveryInfoRepository;
 import com.nhnacademy.eggplantdeliveryschedule.repository.LocationRepository;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
-import org.springframework.batch.core.StepExecution;
-import org.springframework.batch.core.annotation.BeforeStep;
 import org.springframework.batch.core.configuration.annotation.StepScope;
-import org.springframework.batch.item.ExecutionContext;
 import org.springframework.batch.item.ItemWriter;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * ReadyToDeliveringReader 에서 읽은 데이터의 정보를 처리하기 위한 Writer 클래스 입니다.
@@ -28,15 +28,13 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public class ReadyToDeliveringWriter implements ItemWriter<List<String>> {
 
-    private StepExecution stepExecution;
     private final DeliveryInfoRepository deliveryInfoRepository;
     private final LocationRepository locationRepository;
+    private final Sender sender;
 
+    @Transactional
     @Override
     public void write(List<? extends List<String>> trackingNoChunkList) {
-        ExecutionContext executionContext = this.stepExecution.getExecutionContext();
-        executionContext.put("trackingNoChunkList", trackingNoChunkList);
-
         List<String> trackingNoList = trackingNoChunkList.stream()
                                                          .flatMap(List::stream)
                                                          .collect(Collectors.toList());
@@ -53,12 +51,11 @@ public class ReadyToDeliveringWriter implements ItemWriter<List<String>> {
                                         .build();
 
             locationRepository.save(location);
-        }
-    }
 
-    @BeforeStep
-    public void saveStepExecution(StepExecution stepExecution) {
-        this.stepExecution = stepExecution;
+            sender.sendChangeDeliveryStatus(
+                new DeliveryInfoStatusResponseDto(deliveryInfo.getOrderNo(), deliveryInfo.getStatus(),
+                    deliveryInfo.getShopHost(), deliveryInfo.getCompletionTime()));
+        }
     }
 
 }

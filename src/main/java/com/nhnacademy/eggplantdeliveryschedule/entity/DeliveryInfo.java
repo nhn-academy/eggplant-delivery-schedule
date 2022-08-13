@@ -57,5 +57,9 @@ public class DeliveryInfo {
         this.status = status;
     }
 
+    public void insertCompletionTime(LocalDateTime completionTime) {
+        this.completionTime = completionTime;
+    }
+
 }
 

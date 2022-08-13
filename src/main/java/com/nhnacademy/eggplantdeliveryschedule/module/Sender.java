@@ -1,6 +1,9 @@
 package com.nhnacademy.eggplantdeliveryschedule.module;
 
-import com.nhnacademy.eggplantdeliveryschedule.dto.ChangedDeliveryInfoDto;
+import static com.nhnacademy.eggplantdeliveryschedule.constant.ExchangeConstant.DIRECT_EXCHANGE;
+import static com.nhnacademy.eggplantdeliveryschedule.constant.RoutingKeyConstant.ROUTING_CHANGE_DELIVERY_STATUS;
+
+import com.nhnacademy.eggplantdeliveryschedule.dto.response.DeliveryInfoStatusResponseDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.stereotype.Component;
@@ -15,13 +18,11 @@ import org.springframework.stereotype.Component;
 @Component
 public class Sender {
 
-    private static final String DELIVERY_EXCHANGE = "exchange.direct";
-    public static final String ROUTING_DELIVERY_ARRIVAL = "routing.DeliveryArrival";
-
     private final RabbitTemplate rabbitTemplate;
 
-    public void sendDeliveryArrival(final ChangedDeliveryInfoDto changedDeliveryInfoDto) {
-        rabbitTemplate.convertAndSend(DELIVERY_EXCHANGE, ROUTING_DELIVERY_ARRIVAL, changedDeliveryInfoDto);
+    public void sendChangeDeliveryStatus(final DeliveryInfoStatusResponseDto deliveryInfoStatusResponseDto) {
+        rabbitTemplate.convertAndSend(DIRECT_EXCHANGE.getValue(), ROUTING_CHANGE_DELIVERY_STATUS.getValue(),
+            deliveryInfoStatusResponseDto);
     }
 
 }

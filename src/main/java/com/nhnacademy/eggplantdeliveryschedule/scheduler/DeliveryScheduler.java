@@ -24,8 +24,7 @@ import org.springframework.stereotype.Component;
 public class DeliveryScheduler {
     private final JobLauncher jobLauncher;
     private final JobConfig jobConfig;
-
-    public static final long TEN_MINUTE = 1000 * 60;
+    public static final long TEN_MINUTE = (long) 1000 * 60;
 
     /**
      * 배달 상태를 바꿔주는 일을 10초 단위로 처리하는 스케쥴러 메소드 입니다.

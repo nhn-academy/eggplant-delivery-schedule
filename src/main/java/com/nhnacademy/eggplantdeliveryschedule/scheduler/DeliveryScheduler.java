@@ -24,11 +24,12 @@ import org.springframework.stereotype.Component;
 public class DeliveryScheduler {
     private final JobLauncher jobLauncher;
     private final JobConfig jobConfig;
+    public static final long TEN_MINUTE = (long) 1000 * 60;
 
     /**
      * 배달 상태를 바꿔주는 일을 10초 단위로 처리하는 스케쥴러 메소드 입니다.
      */
-    @Scheduled(fixedRate = 10000)
+    @Scheduled(fixedRate = TEN_MINUTE)
     public void doChangeDeliveryStatus() {
         Job job = jobConfig.deliveryStatusChangeJob();
         JobParameters jobParameters = new JobParameters();
@@ -47,7 +48,7 @@ public class DeliveryScheduler {
     /**
      * 배달위치를 바꿔주는 일을 20초 단위로 처리하는 스케쥴러 메소드 입니다.
      */
-    @Scheduled(fixedRate = 20000)
+    @Scheduled(fixedRate = TEN_MINUTE)
     public void doDeliveryLocationChangeJob() {
         Job job = jobConfig.deliveryLocationChangeJob();
         JobParameters jobParameters = new JobParameters();
@@ -66,7 +67,7 @@ public class DeliveryScheduler {
     /**
      * 배달중인 상태를 도착 상태로 만들어주는 메서드를 30초 단위로 처리하는 메소드 입니다.
      */
-    @Scheduled(fixedRate = 30000)
+    @Scheduled(fixedRate = TEN_MINUTE)
     public void deliveringToArrival() {
         Job job = jobConfig.deliveringToArrivalJob();
         JobParameters jobParameters = new JobParameters();

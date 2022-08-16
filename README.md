@@ -1,4 +1,4 @@
-# 🚚 Eggplant-Delivery-schedule
+# 🕰 Eggplant-Delivery-schedule
 > Eggplant Delivery-Schedule 서비스는 Eggplant-Delivery dummy DB를 시간별로 (Spring Batch를 이용) 수정하는 서비스를 수행합니다.
 
 # Getting Started

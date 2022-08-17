@@ -19,8 +19,8 @@ spring:
 
   profiles:
     group:
-      local: common
-      dev: common, testdb
+      local: common, testdb
+      dev: common, devdb
       prod: common, proddb
 
   batch:

@@ -21,7 +21,16 @@
   - 배송 중 (위치 1) --> 배송 중 (위치 2)
   - 배송 중(위치 2) --> 배송 완료
   
-* 특정 시간 기준으로 랜덤으로 해당 상태 10개를 뽑아서 상태를 변경함 
+* 특정 시간 기준으로 랜덤으로 해당 상태 10개를 뽑아서 상태를 변경함
+
+# Tech Issue
+
+- 만약 운용상 큐가 밀리고 있음. 어떻게 처리 할것인가?
+- 만약 재진입 무한루프 `Queue` 가 발생시 어떻게 처리 할 것인가?
+- `Batch` 의 `JOB` 주기의 시간을 랜덤으로 줄 수 있음. 도입 고려 해 볼것.
+- `JpaPagingItemReader` 를 도입 해 볼 수 있나?
+  - Query DSL 복잡한 쿼리에는 사용하기 어려울 것 같음.
+
 
 ## Tech Stack
 ### Build Tools
@@ -77,4 +86,4 @@
 
 ## License
 
-`Eggplant-Delivery` is released under version 2.0 of the [Apache License](https://www.apache.org/licenses/LICENSE-2.0).
+`Eggplant-Delivery-Schedule` is released under version 2.0 of the [Apache License](https://www.apache.org/licenses/LICENSE-2.0).

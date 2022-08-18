@@ -37,6 +37,7 @@ public class ReadyToDeliveringWriter implements ItemWriter<List<String>> {
     public void write(List<? extends List<String>> trackingNoChunkList) {
         List<String> trackingNoList = trackingNoChunkList.stream()
                                                          .flatMap(List::stream)
+                                                         .distinct()
                                                          .collect(Collectors.toList());
 
         for (String trackingNo : trackingNoList) {

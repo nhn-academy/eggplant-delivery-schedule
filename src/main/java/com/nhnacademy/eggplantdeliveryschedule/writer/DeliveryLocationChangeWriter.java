@@ -8,6 +8,7 @@ import com.nhnacademy.eggplantdeliveryschedule.repository.LocationRepository;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
+import javax.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.batch.core.configuration.annotation.StepScope;
 import org.springframework.batch.item.ItemWriter;
@@ -27,10 +28,12 @@ public class DeliveryLocationChangeWriter implements ItemWriter<List<String>> {
     private final DeliveryInfoRepository deliveryInfoRepository;
     private final LocationRepository locationRepository;
 
+    @Transactional
     @Override
     public void write(List<? extends List<String>> trackingNoChunkList) {
         List<String> trackingNoList = trackingNoChunkList.stream()
                                                          .flatMap(List::stream)
+                                                         .distinct()
                                                          .collect(Collectors.toList());
 
         for (String trackingNo : trackingNoList) {

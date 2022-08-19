@@ -7,6 +7,7 @@ import com.nhnacademy.eggplantdeliveryschedule.exception.NotFoundDeliveryInfoExc
 import com.nhnacademy.eggplantdeliveryschedule.module.Sender;
 import com.nhnacademy.eggplantdeliveryschedule.repository.DeliveryInfoRepository;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
@@ -34,13 +35,15 @@ public class DeliveringToArrivalWriter implements ItemWriter<List<String>> {
     public void write(List<? extends List<String>> trackingNoChunkList) {
         List<String> trackingNoList = trackingNoChunkList.stream()
                                                          .flatMap(List::stream)
+                                                         .distinct()
                                                          .collect(Collectors.toList());
 
         for (String trackingNo : trackingNoList) {
             DeliveryInfo deliveryInfo = deliveryInfoRepository.findById(trackingNo)
                                                               .orElseThrow(NotFoundDeliveryInfoException::new);
             deliveryInfo.updateStatus(Status.ARRIVAL);
-            deliveryInfo.insertCompletionTime(LocalDateTime.now());
+            deliveryInfo.insertCompletionTime(
+                LocalDateTime.parse(LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss"))));
 
             sender.sendChangeDeliveryStatus(
                 new DeliveryInfoStatusResponseDto(deliveryInfo.getOrderNo(), deliveryInfo.getStatus(),

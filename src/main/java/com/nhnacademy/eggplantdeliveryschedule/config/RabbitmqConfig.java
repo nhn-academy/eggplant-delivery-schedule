@@ -1,5 +1,6 @@
 package com.nhnacademy.eggplantdeliveryschedule.config;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.IOException;
 import java.security.KeyManagementException;
 import java.security.KeyStoreException;
@@ -97,7 +98,8 @@ public class RabbitmqConfig {
      */
     @Bean
     public MessageConverter messageConverter() {
-        return new Jackson2JsonMessageConverter();
+        ObjectMapper objectMapper = new ObjectMapper().findAndRegisterModules();
+        return new Jackson2JsonMessageConverter(objectMapper);
     }
 
 }

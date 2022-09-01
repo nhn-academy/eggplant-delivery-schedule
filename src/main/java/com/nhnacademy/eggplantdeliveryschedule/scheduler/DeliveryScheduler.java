@@ -22,33 +22,34 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 @Component
 public class DeliveryScheduler {
+
     private final JobLauncher jobLauncher;
     private final JobConfig jobConfig;
-    public static final long TEN_MINUTE = (long) 1000;
 
     /**
-     * 배달 상태를 바꿔주는 일을 10분 단위로 처리하는 스케쥴러 메소드 입니다.
+     * 배달 상태를 바꿔주는 일을 2 ~ 4분 단위로 처리하는 스케쥴러 메소드 입니다.
      */
-    @Scheduled(fixedRate = TEN_MINUTE)
+    @Scheduled(fixedDelayString = "#{new Double((T(java.lang.Math).random() + 1) * 2 * 1000 * 60).intValue()}")
     public void doChangeDeliveryStatus() {
+
         Job job = jobConfig.deliveryStatusChangeJob();
         JobParameters jobParameters = new JobParameters();
 
         try {
             jobLauncher.run(job, jobParameters);
         } catch (JobInstanceAlreadyCompleteException
-                 | JobExecutionAlreadyRunningException
-                 | JobParametersInvalidException
-                 | JobRestartException e) {
+            | JobExecutionAlreadyRunningException
+            | JobParametersInvalidException
+            | JobRestartException e) {
 
             throw new CustomJobException();
         }
     }
 
     /**
-     * 배달위치를 바꿔주는 일을 10분 단위로 처리하는 스케쥴러 메소드 입니다.
+     * 배달 상태를 바꿔주는 일을 2 ~ 4분 단위로 처리하는 스케쥴러 메소드 입니다.
      */
-    @Scheduled(fixedRate = TEN_MINUTE)
+    @Scheduled(fixedDelayString = "#{new Double((T(java.lang.Math).random() + 1) * 2 * 1000 * 60).intValue()}")
     public void doDeliveryLocationChangeJob() {
         Job job = jobConfig.deliveryLocationChangeJob();
         JobParameters jobParameters = new JobParameters();
@@ -56,18 +57,18 @@ public class DeliveryScheduler {
         try {
             jobLauncher.run(job, jobParameters);
         } catch (JobInstanceAlreadyCompleteException
-                 | JobExecutionAlreadyRunningException
-                 | JobParametersInvalidException
-                 | JobRestartException e) {
+            | JobExecutionAlreadyRunningException
+            | JobParametersInvalidException
+            | JobRestartException e) {
 
             throw new CustomJobException();
         }
     }
 
     /**
-     * 배달중인 상태를 도착 상태로 만들어주는 메서드를 10분 단위로 처리하는 메소드 입니다.
+     * 배달 상태를 바꿔주는 일을 2 ~ 4분 단위로 처리하는 스케쥴러 메소드 입니다.
      */
-    @Scheduled(fixedRate = TEN_MINUTE)
+    @Scheduled(fixedDelayString = "#{new Double((T(java.lang.Math).random() + 1) * 2 * 1000 * 60).intValue()}")
     public void deliveringToArrival() {
         Job job = jobConfig.deliveringToArrivalJob();
         JobParameters jobParameters = new JobParameters();
@@ -75,9 +76,9 @@ public class DeliveryScheduler {
         try {
             jobLauncher.run(job, jobParameters);
         } catch (JobInstanceAlreadyCompleteException
-                 | JobExecutionAlreadyRunningException
-                 | JobParametersInvalidException
-                 | JobRestartException e) {
+            | JobExecutionAlreadyRunningException
+            | JobParametersInvalidException
+            | JobRestartException e) {
 
             throw new CustomJobException();
         }

@@ -2,6 +2,7 @@ package com.nhnacademy.eggplantdeliveryschedule.writer;
 
 import com.nhnacademy.eggplantdeliveryschedule.entity.DeliveryInfo;
 import com.nhnacademy.eggplantdeliveryschedule.entity.Location;
+import com.nhnacademy.eggplantdeliveryschedule.entity.status.LocationStatus;
 import com.nhnacademy.eggplantdeliveryschedule.exception.NotFoundDeliveryInfoException;
 import com.nhnacademy.eggplantdeliveryschedule.repository.DeliveryInfoRepository;
 import com.nhnacademy.eggplantdeliveryschedule.repository.LocationRepository;
@@ -42,6 +43,7 @@ public class DeliveryLocationChangeWriter implements ItemWriter<List<String>> {
             Location location = Location.builder()
                                         .pk(new Location.Pk(2L, deliveryInfo.getTrackingNo()))
                                         .deliveryInfo(deliveryInfo)
+                                        .middleLocation(LocationStatus.SECOND_LOCATION.getValue())
                                         .arrivalTime(LocalDateTime.now())
                                         .build();
 

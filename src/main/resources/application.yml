@@ -14,7 +14,7 @@ spring:
 
 logging:
   level:
-    root: debug
+    root: error
 
 datasource:
   driver-class-name: com.mysql.cj.jdbc.Driver
